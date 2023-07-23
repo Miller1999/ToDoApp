@@ -1,0 +1,52 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
+    width: 70%;
+    justify-content: space-around;
+    border-radius: 30px;
+    background-color: var(--secondaryColor);
+    color: var(--mainColor);
+    text-align: center;
+    padding: 30px;
+    font-weight: 900;
+    box-shadow: 2px 2px 10px 5px rgba(0,0,0,0.75);
+    transition: all .5s linear;
+}
+.card p{
+    font-size: 25px;
+    padding: 20px;
+}
+
+.icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+}
+.icons button{
+    background-color: transparent;
+    border: none;
+    border-radius: 100%;
+}
+#check,#cancel{
+    transition: all .3s linear;
+}
+
+#check:hover{
+    transform: scale(1.2);
+    color: #9ba460;
+}
+#cancel:hover{
+    transform: scale(1.2);
+    color: #ff6b57;
+}
+.checked{
+    background-color: #9ba460;
+    text-decoration: line-through;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}

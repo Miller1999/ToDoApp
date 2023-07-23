@@ -1,11 +1,12 @@
 
 import './App.css';
-import { ToDoCounter } from './ToDoCounter';
-import { ToDoSearch } from './ToDoSearch';
-import { ToDoList } from './ToDoList';
-import { ToDoItem } from './ToDoItem';
-import { CreateToDoButton } from './CreateToDoButton';
-import { Fragment } from 'react';
+import "./reset.css"
+import { ToDoCounter } from './components/ToDoCounter/ToDoCounter';
+import { ToDoSearch } from './components/ToDoSearch/ToDoSearch';
+import { ToDoList } from './components/ToDoList/ToDoList';
+import { ToDoItem } from './components/ToDoItem/ToDoItem';
+import { CreateToDoButton } from './components/ToDoButton/CreateToDoButton';
+
 
 const defaultTodos = [
   {
@@ -22,15 +23,21 @@ const defaultTodos = [
   },
   {
     text: "Otra cosa",
-    completed: false
+    completed: true
   },
 ]
 
 function App() {
   return (
-    <Fragment>
-      <ToDoCounter completed={15} total={25}/>
-      <ToDoSearch/>
+    <main className='main'>
+    <section className='head'>
+    <CreateToDoButton/>
+    <p>Hi, Miller </p>
+    </section>
+    <section className='head'>
+    <ToDoCounter />
+    <ToDoSearch/>
+    </section>
       <ToDoList>
         {
           defaultTodos.map(todo => {
@@ -44,8 +51,8 @@ function App() {
           })
         }
       </ToDoList>
-      <CreateToDoButton/>
-    </Fragment>
+      
+    </main>
 
   );
 }
