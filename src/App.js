@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 //Para guardar en el localStorage se debe JSON.stringify()
 //Pra leer info del localStorage se debe JSON.parse()
-
+//Custom Hooks -> funcion empezar por use
 
 // const defaultTodos = [
 //   {
@@ -35,32 +35,39 @@ import { useState } from 'react';
 //   }
 // ]
 
-// localStorage.setItem("V1",defaultTodos)
+// localStorage.setItem("V1",JSON.stringify(defaultTodos))
 // localStorage.removeItem("V1")
 
-function App() {
-  const localStorageTodos = localStorage.getItem("V1")
-  let parsedTodos
+function useLocalStorage (itemName, initialValue) {
 
-  if(!localStorageTodos){
-    localStorage.setItem("V1",JSON.stringify([]))
-    parsedTodos = []
+  const localStorageItem = localStorage.getItem(itemName)
+  let parsedItem
+
+  if(!localStorageItem){
+    localStorage.setItem(itemName,JSON.stringify(initialValue))
+    parsedItem = initialValue
   } else {
-    parsedTodos = JSON.parse(localStorageTodos)
+    parsedItem = JSON.parse(localStorageItem)
   }
 
+  const [item, setItem] = useState(parsedItem)
+
+  const saveItem = (newItem) => {
+    localStorage.setItem(itemName,JSON.stringify(newItem))
+    setItem(newItem)
+  }
+
+  return [item, saveItem]
+}
+
+function App() {
 
   const [searchValue,setSearchValue] = useState("")
-  const [todos,setTodos] = useState(parsedTodos )
+  const [todos,saveTodos] = useLocalStorage("V1",[])
   //Estados derivados
   const completedTodos = todos.filter(todo => todo.completed === true).length
   const totalTodos = todos.length
   const searchedTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-
-  const saveTodos = (newTodos) => {
-    localStorage.setItem("V1",JSON.stringify(newTodos))
-    setTodos(newTodos)
-  }
 
   const completeTodo = (text) => {
     const newTodos = [...todos]
