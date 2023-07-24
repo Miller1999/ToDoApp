@@ -9,3 +9,16 @@
     width: 50px;
     height: 50px;
 }
+.contenedorS{
+    display: flex;
+    background-color: var(--secondaryColor);
+    border-radius:20px ;
+    padding: 5px;
+}
+.contenedorS input{
+    background-color: var(--secondaryColor);
+    border: none;
+    outline: none;
+    font-size: 20px;
+    width: 200px;
+}
