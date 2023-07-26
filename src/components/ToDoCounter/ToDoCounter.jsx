@@ -1,7 +1,10 @@
+import { ToDoContext } from "../../Hooks/ToDoContext/ToDoContext"
 import "./ToDoCounter.css"
+import { useContext } from "react"
 
-function ToDoCounter({total,completed}){
-    if(completed === total){
+function ToDoCounter(){
+    const {completedTodos,totalTodos} = useContext(ToDoContext)
+    if(completedTodos === totalTodos){
         return(
             <h1>
                 All tasks completed 😊
@@ -10,7 +13,7 @@ function ToDoCounter({total,completed}){
     }
     return(
         <h1>
-            Finished {completed} of {total}
+            Finished {completedTodos} of {totalTodos}
         </h1>
     )
 }

@@ -6,7 +6,9 @@ import { ToDoSearch } from './components/ToDoSearch/ToDoSearch';
 import { ToDoList } from './components/ToDoList/ToDoList';
 import { ToDoItem } from './components/ToDoItem/ToDoItem';
 import { CreateToDoButton } from './components/ToDoButton/CreateToDoButton';
-import { useState } from 'react';
+import { ToDoProvider,ToDoContext } from './Hooks/ToDoContext/ToDoContext';
+import { Fragment } from 'react';
+
 
 //Para guardar en el localStorage se debe JSON.stringify()
 //Pra leer info del localStorage se debe JSON.parse()
@@ -38,84 +40,55 @@ import { useState } from 'react';
 // localStorage.setItem("V1",JSON.stringify(defaultTodos))
 // localStorage.removeItem("V1")
 
-function useLocalStorage (itemName, initialValue) {
 
-  const localStorageItem = localStorage.getItem(itemName)
-  let parsedItem
-
-  if(!localStorageItem){
-    localStorage.setItem(itemName,JSON.stringify(initialValue))
-    parsedItem = initialValue
-  } else {
-    parsedItem = JSON.parse(localStorageItem)
-  }
-
-  const [item, setItem] = useState(parsedItem)
-
-  const saveItem = (newItem) => {
-    localStorage.setItem(itemName,JSON.stringify(newItem))
-    setItem(newItem)
-  }
-
-  return [item, saveItem]
-}
 
 function App() {
 
-  const [searchValue,setSearchValue] = useState("")
-  const [todos,saveTodos] = useLocalStorage("V1",[])
-  //Estados derivados
-  const completedTodos = todos.filter(todo => todo.completed === true).length
-  const totalTodos = todos.length
-  const searchedTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-
-  const completeTodo = (text) => {
-    const newTodos = [...todos]
-    const todoIndex = newTodos.findIndex(todo => todo.text === text)
-    newTodos[todoIndex].completed = true
-    saveTodos(newTodos)
-  }
-  const deleteTodo = (text) => {
-    const newTodos = [...todos]
-    const todoIndex = newTodos.findIndex(todo => todo.text === text)
-    newTodos.splice(todoIndex,1)
-    saveTodos(newTodos)
-  }
-
   return (
-    <main className='main'>
-    <section className='head'>
-    <CreateToDoButton/>
-    <p>Hi, Miller </p>
-    </section>
-    <section className='head'>
-    <ToDoCounter 
-    completed = {completedTodos} 
-    total= {totalTodos}
-    />
-    <ToDoSearch 
-    searchValue={searchValue} 
-    setSearchValue={setSearchValue}
-    />
-    </section>
-      <ToDoList>
+    <ToDoProvider>
+      <main className='main'>
+      <section className='head'>
+      <CreateToDoButton/>
+      <p>Hi, Miller </p>
+      </section>
+      <section className='head'>
+      <ToDoCounter />
+      <ToDoSearch/>
+      </section>
+      <ToDoContext.Consumer>
         {
-          searchedTodos.map(todo => { 
-            return(
-              <ToDoItem 
-              key={todo.text} 
-              text={todo.text}
-              completed={todo.completed}
-              onComplete={() => completeTodo(todo.text)}
-              onDelete={() => deleteTodo(todo.text)}
-              />
-            )
-          })
+          ({          
+            loading,
+            error, 
+            searchedTodos,
+            completeTodo,
+            deleteTodo}) => (   
+          <Fragment>
+              <ToDoList>
+              {loading && <p>Estamos cargando...</p>}
+              {error && <p>Desesperate hay errores</p>}
+              {(!loading && searchedTodos.length === 0) && <p>Crea tu primer ToDo 😊</p>}
+                {
+                  searchedTodos.map(todo => { 
+                    return(
+                      <ToDoItem 
+                      key={todo.text} 
+                      text={todo.text}
+                      completed={todo.completed}
+                      onComplete={() => completeTodo(todo.text)}
+                      onDelete={() => deleteTodo(todo.text)}
+                      />
+                    )
+                  })
+                }
+              </ToDoList>
+          </Fragment>   
+          )
         }
-      </ToDoList>
-      
-    </main>
-
+      </ToDoContext.Consumer>
+        
+      </main>
+    </ToDoProvider>
   );
 }
 
