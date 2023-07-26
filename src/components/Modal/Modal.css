@@ -1,0 +1,13 @@
+.Modal{
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    width: 520px;
+    height: 260px;
+    border-radius: 25px;
+    background-color: var(--secondaryColor);
+    padding: 20px;
+    z-index: 1;
+    box-shadow: 10px 10px 5px 1000px rgba(0,0,0,0.75);
+    font-family: "Raleway";
+}

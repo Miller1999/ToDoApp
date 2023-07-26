@@ -6,4 +6,5 @@
     background-color: var(--secondaryColor);
     border-radius: 20px;
     padding: 5px 10px;
+    z-index: 2;
 }

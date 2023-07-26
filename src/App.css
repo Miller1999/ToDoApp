@@ -2,6 +2,8 @@
   --mainColor: #1f1f1f;
   --secondaryColor: #f9cd62;
   --secondatyText: #efefef;
+  --rojo: #ff6b57;
+  --verde: #9ba460;
 }
 .main{
   display: flex;
@@ -15,7 +17,9 @@
   box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.75);
   border-radius: 50px;
 }
-
+body{
+  overflow-x: hidden;
+}
 .head{
   display: flex;
   width: 100%;

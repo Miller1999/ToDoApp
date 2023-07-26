@@ -36,14 +36,14 @@
 
 #check:hover{
     transform: scale(1.2);
-    color: #9ba460;
+    color: var(--verde);
 }
 #cancel:hover{
     transform: scale(1.2);
-    color: #ff6b57;
+    color: var(--rojo);
 }
 .checked{
-    background-color: #9ba460;
+    background-color: var(--verde);
     text-decoration: line-through;
 }
 

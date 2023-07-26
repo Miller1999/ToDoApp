@@ -5,6 +5,7 @@ import useLocalStorage from "../useLocalStorage/useLocalStorage";
 const ToDoContext = createContext()
 
 function ToDoProvider({children}){
+        const [openModal,setOpenModal] = useState(false)
         const [searchValue,setSearchValue] = useState("")
         const {
             item: todos,
@@ -17,6 +18,15 @@ function ToDoProvider({children}){
         const totalTodos = todos.length
         const searchedTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLocaleLowerCase()))
     
+        const addTodo = (text) => {
+            const newTodos = [...todos]
+            newTodos.push({
+                text,
+                completed:false
+            })
+            saveTodos(newTodos)
+        }
+
         const completeTodo = (text) => {
         const newTodos = [...todos]
         const todoIndex = newTodos.findIndex(todo => todo.text === text)
@@ -39,7 +49,10 @@ function ToDoProvider({children}){
             searchedTodos,
             setSearchValue,
             completeTodo,
-            deleteTodo
+            deleteTodo,
+            openModal,
+            setOpenModal,
+            addTodo
         }}>
             {
                 children

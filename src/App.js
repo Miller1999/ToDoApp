@@ -7,7 +7,8 @@ import { ToDoList } from './components/ToDoList/ToDoList';
 import { ToDoItem } from './components/ToDoItem/ToDoItem';
 import { CreateToDoButton } from './components/ToDoButton/CreateToDoButton';
 import { ToDoProvider,ToDoContext } from './Hooks/ToDoContext/ToDoContext';
-import { Fragment } from 'react';
+import { Modal } from './components/Modal/Modal';
+import { ToDoForm } from './components/ToDoForm/ToDoForm';
 
 
 //Para guardar en el localStorage se debe JSON.stringify()
@@ -43,27 +44,33 @@ import { Fragment } from 'react';
 
 
 function App() {
-
   return (
     <ToDoProvider>
-      <main className='main'>
+      <ToDoContext.Consumer>
+        {
+          ({          
+            openModal,
+            setOpenModal,
+            loading,
+            error, 
+            searchedTodos,
+            completeTodo,
+            deleteTodo}) => (
+              <main className='main'>
       <section className='head'>
       <CreateToDoButton/>
+      {
+        openModal && <Modal>
+        <ToDoForm/>
+      </Modal>
+      }
+      
       <p>Hi, Miller </p>
       </section>
       <section className='head'>
       <ToDoCounter />
       <ToDoSearch/>
       </section>
-      <ToDoContext.Consumer>
-        {
-          ({          
-            loading,
-            error, 
-            searchedTodos,
-            completeTodo,
-            deleteTodo}) => (   
-          <Fragment>
               <ToDoList>
               {loading && <p>Estamos cargando...</p>}
               {error && <p>Desesperate hay errores</p>}
@@ -82,16 +89,11 @@ function App() {
                   })
                 }
               </ToDoList>
-          </Fragment>   
-          )
-        }
-      </ToDoContext.Consumer>
-        
       </main>
+  )
+}
+      </ToDoContext.Consumer>
     </ToDoProvider>
   );
 }
-
-
-
 export default App;

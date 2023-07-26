@@ -1,0 +1,44 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+form label{
+    font-weight: 900;
+    font-size: 20px;
+}
+form textarea{
+    outline: none;
+    border:none;
+    padding: 10px;
+    font-family: "Raleway";
+    border-radius: 20px;
+    resize: none;
+}
+.contenedorBotones{
+    align-self: end;
+    display: flex;
+    gap: 20px;
+}
+.contenedorBotones button{
+    font-family: "Raleway";
+    display: inline-block;
+    width: 75px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 10px;
+    transition: all .5s;
+}
+.add{
+    background-color: var(--verde);
+    color: var(--secondatyText);
+}
+.add:hover{
+    transform: scale(1.02);
+}
+.cancel:hover{
+    background-color: var(--rojo);
+    color: var(--secondatyText);
+}
