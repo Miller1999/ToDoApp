@@ -11,3 +11,10 @@
     box-shadow: 10px 10px 5px 1000px rgba(0,0,0,0.75);
     font-family: "Raleway";
 }
+@media (max-width:425px) {
+    .Modal{
+        top: 20vh;
+        left: 10vw;
+        width: 80%;
+    }
+}

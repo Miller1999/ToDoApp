@@ -22,3 +22,15 @@
     font-size: 20px;
     width: 200px;
 }
+
+@media (max-width:425px) {
+    .search{
+        width: 25px;
+        height: 25px;
+    }
+    
+    .contenedorS input{
+        width: 150px;
+        font-size: 15px;
+    }
+}

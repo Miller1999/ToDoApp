@@ -50,3 +50,9 @@
 .card:hover{
     transform: scale(1.05);
 }
+
+@media (max-width:425px) {
+    .card{
+        width: 100%;
+    }
+}
